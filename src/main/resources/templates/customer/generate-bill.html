@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content})}">
+
+<head>
+    <title>Generate Bill</title>
+</head>
+
+<body>
+    <div class="content mt-4">
+        <h2>Generate Bill for Meter</h2>
+        <div class="card mt-3">
+            <div class="card-body">
+                <p><strong>Meter Number:</strong> <span th:text="${meter.meterNumber}"></span></p>
+                <p><strong>Type:</strong> <span th:text="${meter.type}"></span></p>
+
+                <form th:action="@{/customer/generate-bill}" method="post" class="mt-4">
+                    <input type="hidden" name="meterId" th:value="${meter.id}" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Units Consumed This Period</label>
+                        <input type="number" step="0.01" name="unitsConsumed" class="form-control" required />
+                        <small class="form-text text-muted">Enter the difference from your last reading.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Generate Bill</button>
+                    <a href="/customer/meters" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content})}">
+
+<head>
+    <title>My Meters</title>
+</head>
+
+<body>
+    <div class="content mt-4">
+        <h2>My Assigned Meters</h2>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Meter No.</th>
+                    <th>Type</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="m : ${meters}">
+                    <td th:text="${m.meterNumber}">123</td>
+                    <td><span class="badge"
+                            th:classappend="${m.type.name() == 'WATER' ? 'bg-info' : 'bg-warning text-dark'}"
+                            th:text="${m.type}">WATER</span></td>
+                    <td th:text="${m.assignedAddress}">Address</td>
+                    <td>
+                        <a th:href="@{/customer/generate-bill/{id}(id=${m.id})}" class="btn btn-sm btn-primary">Generate
+                            Bill</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

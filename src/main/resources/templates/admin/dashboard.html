@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+
+<head>
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        <script>document.body.classList.add('admin-body');</script>
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="display-5 fw-bold text-silver">Operational Overview</h2>
+                    <span class="badge bg-secondary text-light p-2 border border-silver">System Live</span>
+                </div>
+                <hr class="border-silver opacity-50">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card admin-card h-100 p-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title text-uppercase small opacity-75 text-orange">Total Users</h5>
+                            <i class="fas fa-users fa-2x text-orange"></i>
+                        </div>
+                        <p class="display-4 fw-bold mt-3 text-orange" th:text="${users.size()}">4</p>
+                        <a href="/admin/users" class="btn btn-infra btn-sm mt-3">Infrastructure Directory</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card admin-card h-100 p-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title text-uppercase small opacity-75 text-cyan">Active Meters</h5>
+                            <i class="fas fa-tachometer-alt fa-2x text-cyan"></i>
+                        </div>
+                        <p class="display-4 fw-bold mt-3 text-cyan" th:text="${meters.size()}">2</p>
+                        <a href="/admin/meters" class="btn btn-sys btn-sm mt-3">System Infrastructure</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card admin-card h-100 p-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title text-uppercase small opacity-75 text-green">Billing Cycles</h5>
+                            <i class="fas fa-file-invoice-dollar fa-2x text-green"></i>
+                        </div>
+                        <p class="display-4 fw-bold mt-3 text-green" th:text="${bills.size()}">1</p>
+                        <a href="/admin/bills" class="btn btn-fin btn-sm mt-3">Financial Records</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

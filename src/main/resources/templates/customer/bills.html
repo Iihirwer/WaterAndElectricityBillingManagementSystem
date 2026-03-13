@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content})}">
+
+<head>
+    <title>My Bills</title>
+</head>
+
+<body>
+    <div class="content mt-4">
+        <h2>My Bills</h2>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Meter No.</th>
+                    <th>Period</th>
+                    <th>Amount ($)</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="b : ${bills}">
+                    <td th:text="${b.id}">1</td>
+                    <td th:text="${b.meter.meterNumber}">Meter</td>
+                    <td th:text="${b.billingPeriod}">Jan 2026</td>
+                    <td th:text="${b.amount}">100.00</td>
+                    <td th:text="${b.dueDate}">2026-02-15</td>
+                    <td>
+                        <span class="badge"
+                            th:classappend="${b.status.name() == 'PAID' ? 'bg-success' : 'bg-warning text-dark'}"
+                            th:text="${b.status}">PENDING</span>
+                    </td>
+                    <td>
+                        <form th:if="${b.status.name() == 'PENDING'}" th:action="@{/customer/pay-bill}" method="post"
+                            class="d-inline">
+                            <input type="hidden" name="billId" th:value="${b.id}" />
+                            <select name="paymentMethod" class="form-select form-select-sm d-inline w-auto" required>
+                                <option value="CREDIT_CARD">Credit Card</option>
+                                <option value="BANK_TRANSFER">Bank Transfer</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-success ms-1">Pay Now</button>
+                        </form>
+                        <span th:if="${b.status.name() == 'PAID'}" class="text-success fw-bold">Paid on <span
+                                th:text="${b.payment.paymentDate}"></span></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

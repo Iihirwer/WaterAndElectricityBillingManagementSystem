@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content})}">
+
+<head>
+    <title>Customer Dashboard</title>
+</head>
+
+<body>
+    <div class="content mt-4">
+        <h2>Welcome, <span th:text="${user.fullName}">Customer</span></h2>
+
+        <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">My Assigned Meters</h5>
+                        <p class="card-text fs-3" th:text="${meters.size()}">0</p>
+                        <a href="/customer/meters" class="btn btn-light mt-2">View Meters</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">My Bills</h5>
+                        <p class="card-text fs-3" th:text="${bills.size()}">0</p>
+                        <a href="/customer/bills" class="btn btn-light mt-2">View & Pay Bills</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

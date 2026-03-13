@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Water & Electricity Billing</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Left Side: Information & Branding -->
+        <div class="login-info">
+            <h1>Smart Utility Management</h1>
+            <p>Empowering you with real-time tracking of your water and electricity consumption. Save resources, save money, and join the green revolution.</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <span>Precise Digital Meter Tracking</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <span>Instant Bill Generation & History</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <span>Secure Online Payments</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <span>24/7 Energy & Water Usage Insights</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="login-form-side">
+            <div class="form-header">
+                <i class="fas fa-bolt fa-3x mb-3 text-warning"></i>
+                <h2>Welcome Back</h2>
+                <p class="text-white-50">Please enter your details</p>
+            </div>
+
+            <div th:if="${param.error}" class="alert alert-danger bg-danger text-white border-0 py-2">
+                <small>Invalid username or password.</small>
+            </div>
+            <div th:if="${param.logout}" class="alert alert-info bg-info text-dark border-0 py-2">
+                <small>You have been logged out.</small>
+            </div>
+            <div th:if="${param.registered}" class="alert alert-success bg-success text-white border-0 py-2">
+                <small>Welcome! Please login to continue.</small>
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label class="form-label small">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0 text-white-50"><i class="fas fa-user"></i></span>
+                        <input type="text" name="username" class="form-control border-start-0 ps-0" placeholder="Enter username" required />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0 text-white-50"><i class="fas fa-lock"></i></span>
+                        <input type="password" name="password" class="form-control border-start-0 ps-0" placeholder="••••••••" required />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-2">Login to Account</button>
+            </form>
+
+            <div class="form-footer">
+                <p class="small text-white-50">New to the platform? <br>
+                    <a href="/register">Create an Account</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

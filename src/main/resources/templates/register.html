@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Water & Electricity Billing</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Left Side: Information & Branding -->
+        <div class="login-info d-none d-lg-flex">
+            <h1>Join the Smart Revolution</h1>
+            <p>Create an account to start managing your resources efficiently. Get real-time updates and effortless billing.</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <i class="fas fa-seedling feature-icon"></i>
+                    <span>Sustainable Resource Management</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <span>Verified & Secure Data Profile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Register Form -->
+        <div class="login-form-side">
+            <div class="form-header">
+                <i class="fas fa-user-plus fa-3x mb-3 text-success"></i>
+                <h2>Create Account</h2>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger bg-danger text-white border-0 py-2 small" th:text="${error}"></div>
+
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <label class="form-label small">Full Name</label>
+                        <input type="text" th:field="*{fullName}" class="form-control" placeholder="John Doe" required />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label small">Username</label>
+                        <input type="text" th:field="*{username}" class="form-control" placeholder="johndoe" required />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label small">Email</label>
+                        <input type="email" th:field="*{email}" class="form-control" placeholder="john@example.com" required />
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small">Phone</label>
+                    <input type="text" th:field="*{phone}" class="form-control" placeholder="+1 234 567 890" />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small">Address</label>
+                    <textarea th:field="*{address}" class="form-control" rows="1" placeholder="Street Address"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label small">Password</label>
+                        <input type="password" th:field="*{password}" id="password" class="form-control" placeholder="••••••••" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label small">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="••••••••" required />
+                        <div id="passwordError" class="text-danger small mt-1" style="display: none;">
+                            <i class="fas fa-exclamation-circle me-1"></i> Passwords do not match
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Register Now</button>
+            </form>
+
+            <div class="form-footer mt-4">
+                <p class="small text-white-50">Already have an account? <br>
+                    <a href="/login" class="text-success">Login Here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Password Validation Script -->
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                errorDiv.style.display = 'block';
+                document.getElementById('confirmPassword').classList.add('is-invalid');
+            } else {
+                errorDiv.style.display = 'none';
+                document.getElementById('confirmPassword').classList.remove('is-invalid');
+            }
+        });
+
+        // Hide error while typing
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            document.getElementById('passwordError').style.display = 'none';
+            this.classList.remove('is-invalid');
+        });
+    </script>
+</body>
+
+</html>

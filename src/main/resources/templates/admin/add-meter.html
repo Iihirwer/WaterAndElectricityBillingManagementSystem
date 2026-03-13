@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+
+<head>
+    <title>Add Meter - Smart Grid</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        <script>document.body.classList.add('admin-body');</script>
+        <h2 class="text-silver mb-4">Assign New Infrastructure</h2>
+        <div class="card mt-3">
+            <div class="card-body">
+                <form th:action="@{/admin/add-meter}" th:object="${meter}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Meter Number (Unique)</label>
+                        <input type="text" th:field="*{meterNumber}" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Meter Type</label>
+                        <select th:field="*{type}" class="form-select" required>
+                            <option th:each="type : ${meterTypes}" th:value="${type}" th:text="${type}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Assigned Address</label>
+                        <textarea th:field="*{assignedAddress}" class="form-control" rows="2" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Assign to Customer</label>
+                        <select name="userId" class="form-select" required>
+                            <option value="">-- Select Customer --</option>
+                            <option th:each="u : ${users}" th:if="${u.role.name() == 'CUSTOMER'}" th:value="${u.id}"
+                                th:text="${u.fullName + ' (' + u.username + ')'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Meter</button>
+                    <a href="/admin/meters" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

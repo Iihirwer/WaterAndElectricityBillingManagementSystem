@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+
+<head>
+    <title>Manage Users - Smart Grid</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        <script>document.body.classList.add('admin-body');</script>
+        <h2 class="text-silver mb-4">Infrastructure Directory</h2>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="u : ${users}">
+                    <td th:text="${u.id}">1</td>
+                    <td th:text="${u.fullName}">Name</td>
+                    <td th:text="${u.username}">Username</td>
+                    <td>
+                        <span class="badge" th:classappend="${u.role.name() == 'ADMIN' ? 'bg-danger' : 'bg-primary'}"
+                            th:text="${u.role}">ROLE</span>
+                    </td>
+                    <td th:text="${u.email}">email@test.com</td>
+                    <td th:text="${u.phone}">123456</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+:root {
+    --admin-primary: #bdbdbd;
+    --admin-dark: #121212;
+    --admin-glass: rgba(25, 25, 25, 0.8);
+    --admin-accent: #ffffff;
+}
+
+body.admin-body {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/admin-bg-grey.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 80px;
+}
+
+.text-silver {
+    color: var(--admin-primary) !important;
+}
+
+.admin-card {
+    background: var(--admin-glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(202, 16, 168, 0.171);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(186, 10, 10, 0.822);
+    border-color: rgba(91, 23, 201, 0.523);
+}
+
+.navbar-admin {
+    background: rgba(10, 10, 10, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--admin-primary);
+}
+
+.btn-admin {
+    background: var(--admin-primary);
+    border: none;
+    color: #121212;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+.btn-admin:hover {
+    background: #ffffff;
+    color: #80d31a;
+}
+
+.table-admin {
+    color: #e0e0e0;
+}
+
+.table-admin thead {
+    background: rgba(57, 197, 14, 0.742);
+}
+
+.border-silver {
+    border-color: rgba(200, 25, 25, 0.888) !important;
+}

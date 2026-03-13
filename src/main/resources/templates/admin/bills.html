@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+
+<head>
+    <title>All Bills - Smart Grid</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        <script>document.body.classList.add('admin-body');</script>
+        <h2 class="text-silver mb-4">Financial Records</h2>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Customer</th>
+                    <th>Meter No.</th>
+                    <th>Period</th>
+                    <th>Amount ($)</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="b : ${bills}">
+                    <td th:text="${b.id}">1</td>
+                    <td th:text="${b.user.fullName}">User</td>
+                    <td th:text="${b.meter.meterNumber}">Meter</td>
+                    <td th:text="${b.billingPeriod}">Jan 2026</td>
+                    <td th:text="${b.amount}">100.00</td>
+                    <td th:text="${b.dueDate}">2026-02-15</td>
+                    <td>
+                        <span class="badge"
+                            th:classappend="${b.status.name() == 'PAID' ? 'bg-success' : 'bg-warning text-dark'}"
+                            th:text="${b.status}">PENDING</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
