@@ -1,16 +1,18 @@
 :root {
-    --admin-primary: #bdbdbd;
-    --admin-dark: #121212;
-    --admin-glass: rgba(25, 25, 25, 0.8);
-    --admin-accent: #ffffff;
+    --admin-primary: #ffff00; /* Yellow */
+    --admin-dark: #1bb3c1;    /* User's manual preference: Cyan/Teal */
+    --admin-glass: rgba(25, 180, 223, 0.8); /* Cyan-Blue Glass */
+    --admin-accent: #ffff00; /* Matching Yellow for cards */
+    --admin-purple: #a020f0;
+    --admin-gradient: linear-gradient(45deg, #ffff00, #1bb3c1);
 }
 
 body.admin-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/admin-bg-grey.jpg');
+    background: linear-gradient(rgba(46, 158, 183, 0.85), rgba(11, 187, 222, 0.85)), url('../images/admin-bg-water-electric.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    color: #f0f0f0;
+    color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 80px;
 }
@@ -20,23 +22,24 @@ body.admin-body {
 }
 
 .admin-card {
-    background: var(--admin-glass);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(202, 16, 168, 0.171);
-    border-radius: 15px;
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 3px solid var(--admin-primary); /* Bright Yellow Border */
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255, 255, 0, 0.5); /* Yellow Neon Glow */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .admin-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(186, 10, 10, 0.822);
-    border-color: rgba(91, 23, 201, 0.523);
+    transform: translateY(-8px);
+    box-shadow: 0 0 40px rgba(255, 255, 0, 0.8);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .navbar-admin {
-    background: rgba(10, 10, 10, 0.9) !important;
+    background: rgba(27, 179, 193, 0.95) !important; /* Themed Teal */
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid var(--admin-primary);
+    border-bottom: 3px solid var(--admin-primary);
 }
 
 .btn-admin {
@@ -46,21 +49,24 @@ body.admin-body {
     border-radius: 8px;
     padding: 10px 20px;
     font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 255, 0, 0.3);
 }
 
 .btn-admin:hover {
     background: #ffffff;
-    color: #80d31a;
+    color: #1bb3c1;
+    transform: scale(1.05);
 }
 
 .table-admin {
-    color: #e0e0e0;
+    color: #ffffff;
 }
 
 .table-admin thead {
-    background: rgba(57, 197, 14, 0.742);
+    background: var(--admin-gradient);
+    color: #000000;
 }
 
 .border-silver {
-    border-color: rgba(200, 25, 25, 0.888) !important;
+    border-color: var(--admin-primary) !important;
 }

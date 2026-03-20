@@ -21,6 +21,7 @@ public class AdminController {
     private final UserService userService;
     private final MeterService meterService;
     private final BillingService billingService;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
@@ -77,5 +78,23 @@ public class AdminController {
     public String bills(Model model) {
         model.addAttribute("bills", billingService.findAll());
         return "admin/bills";
+    }
+
+    @GetMapping("/add-customer")
+    public String addCustomerPage(Model model) {
+        model.addAttribute("user", new User());
+        return "admin/add-customer";
+    }
+
+    @PostMapping("/add-customer")
+    public String addCustomer(@ModelAttribute("user") User user, Model model) {
+        if (userService.findByUsername(user.getUsername()).isPresent()) {
+            model.addAttribute("error", "Username already exists.");
+            return "admin/add-customer";
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(electricity.com.waterandelectricitybillingmanagementsystem.entity.Role.CUSTOMER);
+        userService.save(user);
+        return "redirect:/admin/users?success";
     }
 }

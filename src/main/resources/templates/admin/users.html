@@ -8,7 +8,10 @@
     <div class="content-wrapper">
         <link th:href="@{/css/admin.css}" rel="stylesheet">
         <script>document.body.classList.add('admin-body');</script>
-        <h2 class="text-silver mb-4">Infrastructure Directory</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-silver">Infrastructure Directory</h2>
+            <a href="/admin/add-customer" class="btn btn-admin">Register New Customer</a>
+        </div>
         <table class="table table-striped mt-3">
             <thead>
                 <tr>

@@ -14,7 +14,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2 class="display-5 fw-bold text-silver">Operational Overview</h2>
-                    <span class="badge bg-secondary text-light p-2 border border-silver">System Live</span>
+                    <span class="badge bg-primary text-light p-2 border border-info">System Live</span>
                 </div>
                 <hr class="border-silver opacity-50">
             </div>
@@ -30,6 +30,7 @@
                         </div>
                         <p class="display-4 fw-bold mt-3 text-orange" th:text="${users.size()}">4</p>
                         <a href="/admin/users" class="btn btn-infra btn-sm mt-3">Infrastructure Directory</a>
+                        <a href="/admin/add-customer" class="btn btn-outline-orange btn-sm mt-3 ms-2">Add Customer</a>
                     </div>
                 </div>
             </div>
@@ -50,7 +51,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title text-uppercase small opacity-75 text-green">Billing Cycles</h5>
-                            <i class="fas fa-file-invoice-dollar fa-2x text-green"></i>
+                            <i class="fas fa-file-invoice fa-2x text-green"></i>
                         </div>
                         <p class="display-4 fw-bold mt-3 text-green" th:text="${bills.size()}">1</p>
                         <a href="/admin/bills" class="btn btn-fin btn-sm mt-3">Financial Records</a>

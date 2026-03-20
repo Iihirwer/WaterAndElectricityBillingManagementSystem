@@ -29,7 +29,7 @@
                     <td th:text="${m.meterNumber}">123</td>
                     <td>
                         <span class="badge"
-                            th:classappend="${m.type.name() == 'WATER' ? 'bg-secondary' : 'bg-dark border border-silver'}"
+                            th:classappend="${m.type.name() == 'WATER' ? 'bg-info' : 'bg-dark border border-yellow'}"
                             th:text="${m.type}">WATER</span>
                     </td>
                     <td th:text="${m.user.fullName + ' (' + m.user.username + ')'}">User</td>
