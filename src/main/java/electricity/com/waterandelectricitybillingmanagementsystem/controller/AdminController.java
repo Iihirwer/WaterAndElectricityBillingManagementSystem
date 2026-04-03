@@ -21,7 +21,8 @@ public class AdminController {
     private final BillingService billingService;
     private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
-    public AdminController(UserService userService, MeterService meterService, BillingService billingService, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, MeterService meterService, BillingService billingService,
+            org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.meterService = meterService;
         this.billingService = billingService;
@@ -38,8 +39,13 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public String users(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String users(@RequestParam(value = "search", required = false) String search, Model model) {
+        if (search != null && !search.trim().isEmpty()) {
+            model.addAttribute("users", userService.searchUsers(search));
+            model.addAttribute("search", search);
+        } else {
+            model.addAttribute("users", userService.findAll());
+        }
         return "admin/users";
     }
 

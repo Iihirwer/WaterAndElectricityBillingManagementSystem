@@ -77,4 +77,8 @@ public class UserService {
         }
         return false;
     }
+
+    public List<User> searchUsers(String query) {
+        return userRepository.findByUsernameContainingIgnoreCaseOrEmailContainingIgnoreCase(query, query);
+    }
 }
