@@ -6,7 +6,6 @@ import electricity.com.waterandelectricitybillingmanagementsystem.entity.User;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.BillingService;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.MeterService;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/admin")
-@RequiredArgsConstructor
 public class AdminController {
 
     private final UserService userService;
@@ -23,11 +21,19 @@ public class AdminController {
     private final BillingService billingService;
     private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
+    public AdminController(UserService userService, MeterService meterService, BillingService billingService, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.meterService = meterService;
+        this.billingService = billingService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("meters", meterService.findAll());
         model.addAttribute("bills", billingService.findAll());
+        model.addAttribute("pendingUsers", userService.findPendingUsers());
         return "admin/dashboard";
     }
 
@@ -96,5 +102,40 @@ public class AdminController {
         user.setRole(electricity.com.waterandelectricitybillingmanagementsystem.entity.Role.CUSTOMER);
         userService.save(user);
         return "redirect:/admin/users?success";
+    }
+
+    @GetMapping("/pending-users")
+    public String pendingUsers(Model model) {
+        model.addAttribute("users", userService.findPendingUsers());
+        return "admin/pending-users";
+    }
+
+    @PostMapping("/verify-user/{id}")
+    public String verifyUser(@PathVariable Long id) {
+        userService.verifyUser(id);
+        return "redirect:/admin/pending-users?verified";
+    }
+
+    @GetMapping("/edit-user/{id}")
+    public String editUserPage(@PathVariable Long id, Model model) {
+        User user = userService.findById(id).orElseThrow();
+        model.addAttribute("user", user);
+        return "admin/edit-user";
+    }
+
+    @PostMapping("/update-user/{id}")
+    public String updateUser(@PathVariable Long id,
+            @RequestParam("fullName") String fullName,
+            @RequestParam("email") String email,
+            @RequestParam("phone") String phone,
+            @RequestParam("address") String address) {
+        userService.updateUser(id, fullName, email, phone, address);
+        return "redirect:/admin/users?updated";
+    }
+
+    @PostMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/admin/users?deleted";
     }
 }

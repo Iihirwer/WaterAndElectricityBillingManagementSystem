@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP - Water & Electricity Billing</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <style>
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            font-size: 24px;
+            text-align: center;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        .otp-input:focus {
+            border-color: #198754;
+            box-shadow: 0 0 15px rgba(25, 135, 84, 0.3);
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Left Side: Information & Branding -->
+        <div class="login-info d-none d-lg-flex">
+            <h1>Verify Your Identity</h1>
+            <p>We've sent a 6-digit code to your email. Please enter it here to complete your registration and secure your account.</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <i class="fas fa-envelope-open-text feature-icon"></i>
+                    <span>Check your inbox for the OTP</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-user-shield feature-icon"></i>
+                    <span>Securing your digital profile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: OTP Form -->
+        <div class="login-form-side">
+            <div class="form-header">
+                <i class="fas fa-shield-alt fa-3x mb-3 text-success"></i>
+                <h2>Email Verification</h2>
+                <p class="text-white-50">Sent to: <span th:text="${email}" class="text-success fw-bold"></span></p>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger bg-danger text-white border-0 py-2 small mb-4" th:text="${error}"></div>
+
+            <form th:action="@{/verify-otp}" method="post" id="otpForm">
+                <input type="hidden" name="email" th:value="${email}" />
+                <input type="hidden" name="otp" id="fullOtp" />
+                
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required />
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required />
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required />
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required />
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required />
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required />
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 py-3 fw-bold">Verify & Continue</button>
+            </form>
+
+            <div class="form-footer mt-4">
+                <p class="small text-white-50">Didn't receive the code? <br>
+                    <a th:href="@{/register}" class="text-success">Try Registering Again</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const inputs = document.querySelectorAll('.otp-input');
+        const fullOtpInput = document.getElementById('fullOtp');
+        const form = document.getElementById('otpForm');
+
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length > 1) {
+                    e.target.value = e.target.value.slice(0, 1);
+                }
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                updateFullOtp();
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        function updateFullOtp() {
+            let otp = '';
+            inputs.forEach(input => otp += input.value);
+            fullOtpInput.value = otp;
+        }
+
+        form.addEventListener('submit', (e) => {
+            updateFullOtp();
+            if (fullOtpInput.value.length !== 6) {
+                e.preventDefault();
+                alert('Please enter all 6 digits');
+            }
+        });
+    </script>
+</body>
+
+</html>

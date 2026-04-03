@@ -5,7 +5,6 @@ import electricity.com.waterandelectricitybillingmanagementsystem.entity.MeterRe
 import electricity.com.waterandelectricitybillingmanagementsystem.entity.User;
 import electricity.com.waterandelectricitybillingmanagementsystem.repository.MeterReadingRepository;
 import electricity.com.waterandelectricitybillingmanagementsystem.repository.MeterRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +13,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class MeterService {
 
     private final MeterRepository meterRepository;
     private final MeterReadingRepository meterReadingRepository;
+    private final BillingService billingService;
+
+    public MeterService(MeterRepository meterRepository, MeterReadingRepository meterReadingRepository, BillingService billingService) {
+        this.meterRepository = meterRepository;
+        this.meterReadingRepository = meterReadingRepository;
+        this.billingService = billingService;
+    }
 
     public Meter saveMeter(Meter meter) {
         if (meterRepository.existsByMeterNumber(meter.getMeterNumber())) {
@@ -44,12 +49,27 @@ public class MeterService {
         Meter meter = meterRepository.findById(meterId)
                 .orElseThrow(() -> new IllegalArgumentException("Meter not found"));
 
+        // Get the most recent reading to calculate consumption
+        Optional<MeterReading> lastReadingOpt = meterReadingRepository.findFirstByMeterOrderByReadingDateDesc(meter);
+        Double unitsConsumed = value; // Default if first reading
+        if (lastReadingOpt.isPresent()) {
+            unitsConsumed = value - lastReadingOpt.get().getValue();
+            if (unitsConsumed < 0) {
+                throw new IllegalArgumentException("New reading value cannot be less than previous reading");
+            }
+        }
+
         MeterReading reading = new MeterReading();
         reading.setMeter(meter);
         reading.setValue(value);
         reading.setReadingDate(readingDate != null ? readingDate : LocalDate.now());
 
-        return meterReadingRepository.save(reading);
+        MeterReading savedReading = meterReadingRepository.save(reading);
+
+        // Automatically generate bill
+        billingService.generateBill(meter, unitsConsumed, reading.getReadingDate());
+
+        return savedReading;
     }
 
     public List<MeterReading> getReadingsForMeter(Meter meter) {

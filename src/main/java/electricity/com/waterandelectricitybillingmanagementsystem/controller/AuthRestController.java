@@ -1,10 +1,6 @@
 package electricity.com.waterandelectricitybillingmanagementsystem.controller;
 
 import electricity.com.waterandelectricitybillingmanagementsystem.security.JwtUtils;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,11 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
 public class AuthRestController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+
+    public AuthRestController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
@@ -34,22 +34,36 @@ public class AuthRestController {
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class LoginRequest {
         private String username;
         private String password;
+
+        public LoginRequest() {}
+
+        public LoginRequest(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
     }
 
-    @Data
-    @AllArgsConstructor
     public static class JwtResponse {
         private String token;
         private String type = "Bearer";
 
+        public JwtResponse() {}
+
         public JwtResponse(String accessToken) {
             this.token = accessToken;
         }
+
+        public String getToken() { return token; }
+        public void setToken(String token) { this.token = token; }
+        public String getType() { return type; }
+        public void setType(String type) { this.type = type; }
     }
 }

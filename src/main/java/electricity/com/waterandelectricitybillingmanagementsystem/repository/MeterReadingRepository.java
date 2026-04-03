@@ -5,7 +5,9 @@ import electricity.com.waterandelectricitybillingmanagementsystem.entity.MeterRe
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MeterReadingRepository extends JpaRepository<MeterReading, Long> {
     List<MeterReading> findByMeterOrderByReadingDateDesc(Meter meter);
+    Optional<MeterReading> findFirstByMeterOrderByReadingDateDesc(Meter meter);
 }

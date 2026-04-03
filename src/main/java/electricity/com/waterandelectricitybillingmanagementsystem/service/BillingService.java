@@ -2,7 +2,6 @@ package electricity.com.waterandelectricitybillingmanagementsystem.service;
 
 import electricity.com.waterandelectricitybillingmanagementsystem.entity.*;
 import electricity.com.waterandelectricitybillingmanagementsystem.repository.BillRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class BillingService {
 
     private final BillRepository billRepository;
+
+    public BillingService(BillRepository billRepository) {
+        this.billRepository = billRepository;
+    }
 
     @Transactional
     public Bill generateBill(Meter meter, Double unitsConsumed, LocalDate issueDate) {

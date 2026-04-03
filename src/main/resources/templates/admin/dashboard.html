@@ -21,7 +21,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-4">
                 <div class="card admin-card h-100 p-3">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-4">
                 <div class="card admin-card h-100 p-3">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-4">
                 <div class="card admin-card h-100 p-3">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -55,6 +55,18 @@
                         </div>
                         <p class="display-4 fw-bold mt-3 text-green" th:text="${bills.size()}">1</p>
                         <a href="/admin/bills" class="btn btn-fin btn-sm mt-3">Financial Records</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card admin-card h-100 p-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title text-uppercase small opacity-75 text-info">Pending Audit</h5>
+                            <i class="fas fa-user-clock fa-2x text-info"></i>
+                        </div>
+                        <p class="display-4 fw-bold mt-3 text-info" th:text="${pendingUsers.size()}">0</p>
+                        <a href="/admin/pending-users" class="btn btn-outline-info btn-sm mt-3">Verify Access</a>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,6 @@ import electricity.com.waterandelectricitybillingmanagementsystem.service.Billin
 import electricity.com.waterandelectricitybillingmanagementsystem.service.MeterService;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.PaymentService;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,13 +21,19 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/customer")
-@RequiredArgsConstructor
 public class CustomerController {
 
     private final UserService userService;
     private final MeterService meterService;
     private final BillingService billingService;
     private final PaymentService paymentService;
+
+    public CustomerController(UserService userService, MeterService meterService, BillingService billingService, PaymentService paymentService) {
+        this.userService = userService;
+        this.meterService = meterService;
+        this.billingService = billingService;
+        this.paymentService = paymentService;
+    }
 
     private User getAuthenticatedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -56,25 +61,6 @@ public class CustomerController {
         User user = getAuthenticatedUser();
         model.addAttribute("bills", billingService.findByUser(user));
         return "customer/bills";
-    }
-
-    @GetMapping("/generate-bill/{meterId}")
-    public String generateBillPage(@PathVariable Long meterId, Model model) {
-        Meter meter = meterService.findById(meterId).orElseThrow();
-        // Ensure meter belongs to user
-        if (!meter.getUser().getId().equals(getAuthenticatedUser().getId())) {
-            return "redirect:/customer/dashboard";
-        }
-        model.addAttribute("meter", meter);
-        return "customer/generate-bill";
-    }
-
-    @PostMapping("/generate-bill")
-    public String generateBill(@RequestParam("meterId") Long meterId,
-            @RequestParam("unitsConsumed") Double unitsConsumed) {
-        Meter meter = meterService.findById(meterId).orElseThrow();
-        billingService.generateBill(meter, unitsConsumed, LocalDate.now());
-        return "redirect:/customer/bills";
     }
 
     @PostMapping("/pay-bill")

@@ -56,6 +56,12 @@
             <div th:if="${param.logout}" class="alert alert-info bg-info text-dark border-0 py-2">
                 <small>You have been logged out.</small>
             </div>
+            <div th:if="${param.verified}" class="alert alert-success bg-success text-white border-0 py-2">
+                <small>Email verified successfully! Please wait for <strong>admin approval</strong> to log in.</small>
+            </div>
+            <div th:if="${param.pending}" class="alert alert-warning bg-warning text-dark border-0 py-2">
+                <small>Registration successful! Your account is <strong>pending admin approval</strong>.</small>
+            </div>
             <div th:if="${param.registered}" class="alert alert-success bg-success text-white border-0 py-2">
                 <small>Welcome! Please login to continue.</small>
             </div>

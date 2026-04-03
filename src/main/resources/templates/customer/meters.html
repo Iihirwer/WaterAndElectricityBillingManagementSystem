@@ -25,8 +25,7 @@
                             th:text="${m.type}">WATER</span></td>
                     <td th:text="${m.assignedAddress}">Address</td>
                     <td>
-                        <a th:href="@{/customer/generate-bill/{id}(id=${m.id})}" class="btn btn-sm btn-primary">Generate
-                            Bill</a>
+                        <a th:href="@{/customer/bills}" class="btn btn-sm btn-info">View All Bills</a>
                     </td>
                 </tr>
             </tbody>

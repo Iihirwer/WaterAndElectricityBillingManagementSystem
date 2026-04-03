@@ -1,15 +1,11 @@
 package electricity.com.waterandelectricitybillingmanagementsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "meters")
-@Getter
-@Setter
 public class Meter {
 
     @Id
@@ -35,4 +31,26 @@ public class Meter {
 
     @OneToMany(mappedBy = "meter", cascade = CascadeType.ALL)
     private List<Bill> bills;
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getMeterNumber() { return meterNumber; }
+    public void setMeterNumber(String meterNumber) { this.meterNumber = meterNumber; }
+
+    public MeterType getType() { return type; }
+    public void setType(MeterType type) { this.type = type; }
+
+    public String getAssignedAddress() { return assignedAddress; }
+    public void setAssignedAddress(String assignedAddress) { this.assignedAddress = assignedAddress; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public List<MeterReading> getReadings() { return readings; }
+    public void setReadings(List<MeterReading> readings) { this.readings = readings; }
+
+    public List<Bill> getBills() { return bills; }
+    public void setBills(List<Bill> bills) { this.bills = bills; }
 }

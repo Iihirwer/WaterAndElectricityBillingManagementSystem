@@ -1,15 +1,11 @@
 package electricity.com.waterandelectricitybillingmanagementsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "meter_readings")
-@Getter
-@Setter
 public class MeterReading {
 
     @Id
@@ -25,4 +21,17 @@ public class MeterReading {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "meter_id", nullable = false)
     private Meter meter;
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public LocalDate getReadingDate() { return readingDate; }
+    public void setReadingDate(LocalDate readingDate) { this.readingDate = readingDate; }
+
+    public Double getValue() { return value; }
+    public void setValue(Double value) { this.value = value; }
+
+    public Meter getMeter() { return meter; }
+    public void setMeter(Meter meter) { this.meter = meter; }
 }
