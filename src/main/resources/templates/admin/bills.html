@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{}, bodyClass='admin-body')}">
 
 <head>
     <title>All Bills - Smart Grid</title>

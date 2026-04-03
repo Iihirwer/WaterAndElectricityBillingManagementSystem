@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{}, bodyClass='admin-body')}">
 
 <head>
     <title>Edit User - Smart Grid</title>
@@ -17,7 +17,8 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Full Name</label>
-                            <input type="text" name="fullName" th:value="${user.fullName}" class="form-control" required />
+                            <input type="text" name="fullName" th:value="${user.fullName}" class="form-control"
+                                required />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Username</label>
@@ -39,7 +40,8 @@
 
                     <div class="mb-3">
                         <label class="form-label">Address</label>
-                        <textarea name="address" class="form-control" rows="2" required th:text="${user.address}"></textarea>
+                        <textarea name="address" class="form-control" rows="2" required
+                            th:text="${user.address}"></textarea>
                     </div>
 
                     <div class="mb-3">

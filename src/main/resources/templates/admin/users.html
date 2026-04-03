@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='admin-body')}">
 
 <head>
     <title>Manage Users - Smart Grid</title>

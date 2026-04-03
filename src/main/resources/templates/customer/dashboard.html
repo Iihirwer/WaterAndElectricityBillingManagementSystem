@@ -29,10 +29,12 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
-                <div class="glass-card h-100">
-                    <div class="stat-label mb-2">Pending Bills</div>
+                <div class="glass-card h-100 border-warning">
+                    <div class="stat-label mb-2 text-warning">Pending Bills</div>
                     <div class="stat-value mb-4" th:text="${bills.size()}">0</div>
-                    <a href="/customer/bills" class="btn btn-premium w-100 mt-auto">Financial Overview</a>
+                    <a href="/customer/bills" class="btn btn-premium w-100 mt-auto">
+                        <i class="fas fa-wallet me-2"></i> Pay My Bills
+                    </a>
                 </div>
             </div>
             <div class="col-md-12 col-lg-4">

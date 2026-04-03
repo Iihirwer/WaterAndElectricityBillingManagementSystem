@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='admin-body')}">
 
 <head>
     <title>Admin Dashboard</title>

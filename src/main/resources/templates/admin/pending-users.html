@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{}, bodyClass='admin-body')}">
 
 <head>
     <title>Pending Users</title>
@@ -8,7 +8,7 @@
 <body>
     <div class="content-wrapper">
         <link th:href="@{/css/admin.css}" rel="stylesheet">
-        
+
         <div class="row mb-4">
             <div class="col-12">
                 <h2 class="display-6 text-silver">Pending Verification</h2>
@@ -43,7 +43,8 @@
                             <td th:text="${user.email}">john@example.com</td>
                             <td><span class="badge bg-secondary">Awaiting Audit</span></td>
                             <td class="text-end">
-                                <form th:action="@{/admin/verify-user/{id}(id=${user.id})}" method="post" style="display:inline;">
+                                <form th:action="@{/admin/verify-user/{id}(id=${user.id})}" method="post"
+                                    style="display:inline;">
                                     <button type="submit" class="btn btn-green btn-sm px-4">
                                         <i class="fas fa-user-check me-2"></i>Verify
                                     </button>
