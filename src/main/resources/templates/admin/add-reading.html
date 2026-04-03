@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content}, title=~{::title}, styles=~{}, bodyClass='admin-body')}">
 
 <head>
     <title>Add Meter Reading</title>
