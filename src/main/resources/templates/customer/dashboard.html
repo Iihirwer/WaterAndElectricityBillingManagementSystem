@@ -1,31 +1,47 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content}, title=~{::title}, styles=~{::style}, bodyClass='customer-body')}">
 
 <head>
-    <title>Customer Dashboard</title>
+    <title>My Dashboard - Smart Grid</title>
+    <style>
+        @import url('/css/customer.css');
+
+        body {
+            padding-top: 100px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="content mt-4">
-        <h2>Welcome, <span th:text="${user.fullName}">Customer</span></h2>
+    <div class="content">
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold">Welcome back, <span class="text-warning"
+                    th:text="${user.fullName}">Customer</span></h1>
+            <p class="text-white-50">Manage your utility consumption and billing with transparency and ease.</p>
+        </div>
 
-        <div class="row mt-4">
-            <div class="col-md-6 mb-3">
-                <div class="card text-white bg-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">My Assigned Meters</h5>
-                        <p class="card-text fs-3" th:text="${meters.size()}">0</p>
-                        <a href="/customer/meters" class="btn btn-warning mt-2">View Meters</a>
-                    </div>
+        <div class="row g-4 mt-2">
+            <div class="col-md-6 col-lg-4">
+                <div class="glass-card h-100">
+                    <div class="stat-label mb-2">Assigned Meters</div>
+                    <div class="stat-value mb-4" th:text="${meters.size()}">0</div>
+                    <a href="/customer/meters" class="btn btn-premium-outline w-100 mt-auto">Hardware Directory</a>
                 </div>
             </div>
-            <div class="col-md-6 mb-3">
-                <div class="card text-white bg-warning">
-                    <div class="card-body">
-                        <h5 class="card-title">My Bills</h5>
-                        <p class="card-text fs-3" th:text="${bills.size()}">0</p>
-                        <a href="/customer/bills" class="btn btn-warning mt-2">View & Pay Bills</a>
-                    </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="glass-card h-100">
+                    <div class="stat-label mb-2">Pending Bills</div>
+                    <div class="stat-value mb-4" th:text="${bills.size()}">0</div>
+                    <a href="/customer/bills" class="btn btn-premium w-100 mt-auto">Financial Overview</a>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <div class="glass-card h-100">
+                    <div class="stat-label mb-2">Profile Status</div>
+                    <div class="stat-value mb-4"
+                        style="background: var(--success-gradient); -webkit-background-clip: text; background-clip: text;">
+                        ACTIVE</div>
+                    <p class="text-white-50 small">Your account is fully verified and secure.</p>
                 </div>
             </div>
         </div>

@@ -1,0 +1,165 @@
+/* custom design system for the Water & Electricity Billing System */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --primary-gradient: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+    --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --warning-gradient: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+body.customer-body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    background: url('/images/customer_bg.png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body.customer-body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(10, 11, 46, 0.4) 0%, rgba(10, 11, 46, 0.8) 100%);
+    z-index: -1;
+}
+
+/* Navbar Enhancement */
+.navbar-customer {
+    background: rgba(10, 11, 46, 0.7) !important;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dashboard Specifics */
+.stat-value {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+}
+
+/* Buttons */
+.btn-premium {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-premium:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+    color: white;
+}
+
+.btn-premium-outline {
+    background: transparent;
+    border: 2px solid #3a7bd5;
+    color: white;
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-premium-outline:hover {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+/* Table Styling */
+.customer-table {
+    color: var(--text-primary);
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.customer-table thead th {
+    border: none;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+}
+
+.customer-table tbody tr {
+    background: var(--glass-bg);
+    backdrop-filter: blur(5px);
+    transition: background 0.3s ease;
+}
+
+.customer-table tbody tr td {
+    padding: 1.5rem 1rem;
+    border: none;
+}
+
+.customer-table tbody tr td:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.customer-table tbody tr td:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.customer-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Badges */
+.badge-status {
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.badge-pending {
+    background: var(--warning-gradient);
+    color: #000;
+}
+
+.badge-paid {
+    background: var(--success-gradient);
+    color: #000;
+}

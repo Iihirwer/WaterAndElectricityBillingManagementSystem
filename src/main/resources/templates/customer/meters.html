@@ -1,35 +1,54 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: html(content=~{::div.content})}">
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content}, title=~{::title}, styles=~{::style}, bodyClass='customer-body')}">
 
 <head>
-    <title>My Meters</title>
+    <title>Hardware Directory - Smart Grid</title>
+    <style>
+        @import url('/css/customer.css');
+
+        body {
+            padding-top: 100px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="content mt-4">
-        <h2>My Assigned Meters</h2>
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th>Meter No.</th>
-                    <th>Type</th>
-                    <th>Address</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="m : ${meters}">
-                    <td th:text="${m.meterNumber}">123</td>
-                    <td><span class="badge"
-                            th:classappend="${m.type.name() == 'WATER' ? 'bg-info' : 'bg-warning text-dark'}"
-                            th:text="${m.type}">WATER</span></td>
-                    <td th:text="${m.assignedAddress}">Address</td>
-                    <td>
-                        <a th:href="@{/customer/bills}" class="btn btn-sm btn-info">View All Bills</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="content">
+        <div class="mb-5">
+            <h1 class="display-5 fw-bold">Hardware <span class="text-warning">Directory</span></h1>
+            <p class="text-white-50">View all utility meters assigned to your premises.</p>
+        </div>
+
+        <div class="glass-card shadow-lg">
+            <div class="table-responsive">
+                <table class="table customer-table">
+                    <thead>
+                        <tr>
+                            <th>Serial Number</th>
+                            <th>Service Type</th>
+                            <th>Registered Address</th>
+                            <th>Operational Stats</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="m : ${meters}">
+                            <td class="fw-bold text-info" th:text="${m.meterNumber}">123</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i
+                                        th:class="${m.type.name() == 'ELECTRICITY' ? 'fas fa-bolt text-warning' : 'fas fa-tint text-info'}"></i>
+                                    <span th:text="${m.type}">TYPE</span>
+                                </div>
+                            </td>
+                            <td th:text="${m.assignedAddress}">Address</td>
+                            <td>
+                                <a th:href="@{/customer/bills}" class="btn btn-sm btn-premium-outline">Inspect Usage</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 
