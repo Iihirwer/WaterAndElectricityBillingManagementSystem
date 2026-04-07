@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='water-body')}">
+
+<head>
+    <title>Water Meter Directory</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="display-5 fw-bold text-primary">Water Infrastructure</h2>
+                    <a href="/water-office/add-meter" class="btn btn-primary btn-sm">Assign New Flow Meter</a>
+                </div>
+                <hr class="border-primary opacity-50">
+            </div>
+        </div>
+
+        <div class="card admin-card p-4">
+            <div class="table-responsive">
+                <table class="table text-white">
+                    <thead>
+                        <tr class="text-primary small text-uppercase">
+                            <th>Meter ID</th>
+                            <th>Property Owner</th>
+                            <th>Address</th>
+                            <th>Current Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="meter : ${meters}">
+                            <td class="fw-bold" th:text="${meter.meterNumber}">WTR-001</td>
+                            <td th:text="${meter.user.fullName}">John Doe</td>
+                            <td th:text="${meter.assignedAddress}">123 Main St</td>
+                            <td><span class="badge bg-success">OPERATIONAL</span></td>
+                            <td>
+                                <a th:href="@{/water-office/add-reading/{id}(id=${meter.id})}" class="btn btn-outline-info btn-sm">
+                                    <i class="fas fa-plus me-1"></i> Add Reading
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

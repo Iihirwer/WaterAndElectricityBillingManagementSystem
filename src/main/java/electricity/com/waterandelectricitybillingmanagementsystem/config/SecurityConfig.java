@@ -54,6 +54,8 @@ public class SecurityConfig {
                                 "/images/**")
                         .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/water-office/**").hasAnyRole("ADMIN", "WATER_OFFICE")
+                        .requestMatchers("/electricity-office/**").hasAnyRole("ADMIN", "ELECTRICITY_OFFICE")
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
@@ -63,6 +65,10 @@ public class SecurityConfig {
                             String role = authentication.getAuthorities().iterator().next().getAuthority();
                             if (role.equals("ROLE_ADMIN")) {
                                 response.sendRedirect("/admin/dashboard");
+                            } else if (role.equals("ROLE_WATER_OFFICE")) {
+                                response.sendRedirect("/water-office/dashboard");
+                            } else if (role.equals("ROLE_ELECTRICITY_OFFICE")) {
+                                response.sendRedirect("/electricity-office/dashboard");
                             } else {
                                 response.sendRedirect("/customer/dashboard");
                             }

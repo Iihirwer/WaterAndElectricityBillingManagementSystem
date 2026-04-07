@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='water-body')}">
+
+<head>
+    <title>Assign Water Meter</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="display-5 fw-bold text-primary">Hydraulic Infrastructure Deployment</h2>
+                    <a href="/water-office/meters" class="btn btn-outline-light btn-sm">Return to Directory</a>
+                </div>
+                <hr class="border-primary opacity-50">
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card admin-card p-5 border-primary shadow">
+                    <h4 class="text-white mb-4"><i class="fas fa-faucet me-2 text-primary"></i>Assign Meter to Property</h4>
+                    <form th:action="@{/water-office/add-meter}" th:object="${meter}" method="post">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" th:field="*{meterNumber}" class="form-control bg-dark text-white border-secondary" placeholder="WTR-12345678" minlength="12" maxlength="12" title="Meter number must be exactly 12 characters" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-white-50 small text-uppercase">Property Owner</label>
+                                <select name="userId" class="form-select bg-dark text-white border-secondary" required>
+                                    <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.fullName + ' (' + u.username + ')'}"></option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-white-50 small text-uppercase">District</label>
+                                <select th:field="*{assignedAddress}" class="form-select bg-dark text-white border-secondary" required>
+                                    <option value="">-- Select District --</option>
+                                    <option value="Bugesera">Bugesera</option>
+                                    <option value="Burera">Burera</option>
+                                    <option value="Gakenke">Gakenke</option>
+                                    <option value="Gasabo">Gasabo</option>
+                                    <option value="Gatsibo">Gatsibo</option>
+                                    <option value="Gicumbi">Gicumbi</option>
+                                    <option value="Gisagara">Gisagara</option>
+                                    <option value="Huye">Huye</option>
+                                    <option value="Kamonyi">Kamonyi</option>
+                                    <option value="Karongi">Karongi</option>
+                                    <option value="Kayonza">Kayonza</option>
+                                    <option value="Kicukiro">Kicukiro</option>
+                                    <option value="Kirehe">Kirehe</option>
+                                    <option value="Muhanga">Muhanga</option>
+                                    <option value="Musanze">Musanze</option>
+                                    <option value="Ngoma">Ngoma</option>
+                                    <option value="Ngororero">Ngororero</option>
+                                    <option value="Nyabihu">Nyabihu</option>
+                                    <option value="Nyagatare">Nyagatare</option>
+                                    <option value="Nyamagabe">Nyamagabe</option>
+                                    <option value="Nyamasheke">Nyamasheke</option>
+                                    <option value="Nyanza">Nyanza</option>
+                                    <option value="Nyarugenge">Nyarugenge</option>
+                                    <option value="Nyaruguru">Nyaruguru</option>
+                                    <option value="Rubavu">Rubavu</option>
+                                    <option value="Ruhango">Ruhango</option>
+                                    <option value="Rulindo">Rulindo</option>
+                                    <option value="Rusizi">Rusizi</option>
+                                    <option value="Rutsiro">Rutsiro</option>
+                                    <option value="Rwamagana">Rwamagana</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 shadow">Activate Water Meter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

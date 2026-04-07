@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='water-body')}">
+
+<head>
+    <title>Water Rate Control</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="display-5 fw-bold text-primary">Water Tariff Administration</h2>
+                    <a href="/water-office/dashboard" class="btn btn-outline-light btn-sm">Return to Hub</a>
+                </div>
+                <hr class="border-primary opacity-50">
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card admin-card p-5 border-primary shadow-lg">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-hand-holding-water fa-4x text-primary mb-3"></i>
+                        <h3 class="text-white">Price per Unit (m³)</h3>
+                        <p class="text-white-50">Adjust the municipal water tariff. All subsequent bills will consume this rate.</p>
+                    </div>
+
+                    <div th:if="${param.updated}" class="alert alert-success bg-success text-white border-0 py-2 small mb-4">
+                        Tariff updated successfully. Configuration deployed.
+                    </div>
+
+                    <form th:action="@{/water-office/update-rate}" method="post">
+                        <div class="mb-4">
+                            <label class="form-label text-white-50 small">Current Rate (RWF)</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-dark border-secondary text-primary">RWF</span>
+                                <input type="number" step="0.001" name="rate" th:value="${rate}" 
+                                       class="form-control bg-dark text-white border-secondary text-center fw-bold" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 shadow">Update Municipal Tariff</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

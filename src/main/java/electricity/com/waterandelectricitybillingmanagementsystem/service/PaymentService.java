@@ -22,7 +22,7 @@ public class PaymentService {
     }
 
     @Transactional
-    public Payment processPayment(Bill bill, String paymentMethod) {
+    public Payment processPayment(Bill bill, String paymentMethod, String accountNumber) {
         if (bill.getStatus() == BillStatus.PAID) {
             throw new IllegalStateException("Bill is already paid");
         }
@@ -32,6 +32,7 @@ public class PaymentService {
         payment.setAmountPaid(bill.getAmount());
         payment.setPaymentDate(LocalDate.now());
         payment.setPaymentMethod(paymentMethod);
+        payment.setAccountNumber(accountNumber);
 
         Payment savedPayment = paymentRepository.save(payment);
         billingService.updateBillStatus(bill, BillStatus.PAID);

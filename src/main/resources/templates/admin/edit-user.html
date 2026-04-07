@@ -39,9 +39,40 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Address</label>
-                        <textarea name="address" class="form-control" rows="2" required
-                            th:text="${user.address}"></textarea>
+                        <label class="form-label">District</label>
+                        <select name="address" class="form-select" required>
+                            <option value="">-- Select District --</option>
+                            <option value="Bugesera" th:selected="${user.address == 'Bugesera'}">Bugesera</option>
+                            <option value="Burera" th:selected="${user.address == 'Burera'}">Burera</option>
+                            <option value="Gakenke" th:selected="${user.address == 'Gakenke'}">Gakenke</option>
+                            <option value="Gasabo" th:selected="${user.address == 'Gasabo'}">Gasabo</option>
+                            <option value="Gatsibo" th:selected="${user.address == 'Gatsibo'}">Gatsibo</option>
+                            <option value="Gicumbi" th:selected="${user.address == 'Gicumbi'}">Gicumbi</option>
+                            <option value="Gisagara" th:selected="${user.address == 'Gisagara'}">Gisagara</option>
+                            <option value="Huye" th:selected="${user.address == 'Huye'}">Huye</option>
+                            <option value="Kamonyi" th:selected="${user.address == 'Kamonyi'}">Kamonyi</option>
+                            <option value="Karongi" th:selected="${user.address == 'Karongi'}">Karongi</option>
+                            <option value="Kayonza" th:selected="${user.address == 'Kayonza'}">Kayonza</option>
+                            <option value="Kicukiro" th:selected="${user.address == 'Kicukiro'}">Kicukiro</option>
+                            <option value="Kirehe" th:selected="${user.address == 'Kirehe'}">Kirehe</option>
+                            <option value="Muhanga" th:selected="${user.address == 'Muhanga'}">Muhanga</option>
+                            <option value="Musanze" th:selected="${user.address == 'Musanze'}">Musanze</option>
+                            <option value="Ngoma" th:selected="${user.address == 'Ngoma'}">Ngoma</option>
+                            <option value="Ngororero" th:selected="${user.address == 'Ngororero'}">Ngororero</option>
+                            <option value="Nyabihu" th:selected="${user.address == 'Nyabihu'}">Nyabihu</option>
+                            <option value="Nyagatare" th:selected="${user.address == 'Nyagatare'}">Nyagatare</option>
+                            <option value="Nyamagabe" th:selected="${user.address == 'Nyamagabe'}">Nyamagabe</option>
+                            <option value="Nyamasheke" th:selected="${user.address == 'Nyamasheke'}">Nyamasheke</option>
+                            <option value="Nyanza" th:selected="${user.address == 'Nyanza'}">Nyanza</option>
+                            <option value="Nyarugenge" th:selected="${user.address == 'Nyarugenge'}">Nyarugenge</option>
+                            <option value="Nyaruguru" th:selected="${user.address == 'Nyaruguru'}">Nyaruguru</option>
+                            <option value="Rubavu" th:selected="${user.address == 'Rubavu'}">Rubavu</option>
+                            <option value="Ruhango" th:selected="${user.address == 'Ruhango'}">Ruhango</option>
+                            <option value="Rulindo" th:selected="${user.address == 'Rulindo'}">Rulindo</option>
+                            <option value="Rusizi" th:selected="${user.address == 'Rusizi'}">Rusizi</option>
+                            <option value="Rutsiro" th:selected="${user.address == 'Rutsiro'}">Rutsiro</option>
+                            <option value="Rwamagana" th:selected="${user.address == 'Rwamagana'}">Rwamagana</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">

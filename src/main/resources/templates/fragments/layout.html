@@ -17,7 +17,7 @@
 
 <body th:class="${bodyClass}">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-customer"
-        style="background: rgba(10, 11, 46, 0.9) !important; backdrop-filter: blur(10px); border-bottom: 3px solid #ffb800;">
+        style="background: rgba(10, 11, 46, 0.9) !important; backdrop-filter: blur(10px); border-bottom: 3px solid var(--nav-border-color, #ffb800);">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">BILLING <span class="text-warning">PRO</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -26,10 +26,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto" sec:authorize="isAuthenticated()">
                     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
+                        <a class="nav-link fw-bold text-light" href="/admin/dashboard">ADMIN HUB</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('WATER_OFFICE')">
+                        <a class="nav-link fw-bold text-info" href="/water-office/dashboard">WATER COMMAND</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ELECTRICITY_OFFICE')">
+                        <a class="nav-link fw-bold text-warning" href="/electricity-office/dashboard">GRID COMMAND</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('CUSTOMER')">
-                        <a class="nav-link" href="/customer/dashboard">My Dashboard</a>
+                        <a class="nav-link fw-bold text-success" href="/customer/dashboard">MY ACCOUNT</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">

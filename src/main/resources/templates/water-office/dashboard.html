@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='water-body')}">
+
+<head>
+    <title>Water Office Dashboard</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="display-4 fw-bold text-white mb-0">Water Management Command</h2>
+                        <p class="text-info fw-bold">Overseeing hydrodynamic resource allocation and billing.</p>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge bg-primary text-light p-2 border border-info mb-2">Water District active</span>
+                        <h4 class="text-info fw-bold">Current Rate: RWF <span th:text="${currentRate}">50</span>/unit</h4>
+                    </div>
+                </div>
+                <hr class="border-primary opacity-50">
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Meters Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card admin-card h-100 p-3 border-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title text-uppercase small opacity-75 text-primary">Water Meters</h5>
+                            <i class="fas fa-faucet fa-2x text-primary"></i>
+                        </div>
+                        <p class="display-3 fw-bold mt-3 text-primary" th:text="${meters.size()}">0</p>
+                        <div class="mt-4">
+                            <a href="/water-office/meters" class="btn btn-primary btn-sm">Manage Meters</a>
+                            <a href="/water-office/add-meter" class="btn btn-outline-primary btn-sm ms-2">Assign New</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bills Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card admin-card h-100 p-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title text-uppercase small opacity-75 text-info">Financials (Water)</h5>
+                            <i class="fas fa-file-invoice-dollar fa-2x text-info"></i>
+                        </div>
+                        <p class="display-3 fw-bold mt-3 text-info" th:text="${bills.size()}">0</p>
+                        <div class="mt-4">
+                            <a href="/water-office/dashboard" class="btn btn-info btn-sm text-white">Full Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card admin-card h-100 p-3 border-warning">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title text-uppercase small opacity-75 text-warning">System Config</h5>
+                            <i class="fas fa-cogs fa-2x text-warning"></i>
+                        </div>
+                        <p class="mt-3 text-white-50">Manage unit pricing and municipal settings.</p>
+                        <div class="mt-4">
+                            <a href="/water-office/rates" class="btn btn-warning btn-sm">Update Price</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Billing -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card admin-card p-4">
+                    <h4 class="text-white mb-4"><i class="fas fa-bolt me-2 text-primary"></i>Quick Bill Generation</h4>
+                    <form th:action="@{/water-office/generate-bill}" method="post" class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label text-white-50 small">Select Meter</label>
+                            <select name="meterId" class="form-select bg-dark text-white border-secondary" required>
+                                <option th:each="meter : ${meters}" th:value="${meter.id}" th:text="${meter.meterNumber + ' - ' + meter.user.fullName}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label text-white-50 small">Units Consumed</label>
+                            <input type="number" step="0.01" name="units" class="form-control bg-dark text-white border-secondary" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label text-white-50 small">Billing Date</label>
+                            <input type="date" name="date" class="form-control bg-dark text-white border-secondary" required>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">Invoke Billing</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

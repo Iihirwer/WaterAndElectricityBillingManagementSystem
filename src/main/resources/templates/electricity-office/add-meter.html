@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='electricity-body')}">
+
+<head>
+    <title>Assign Power Meter</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="display-5 fw-bold text-warning">Grid Infrastructure Deployment</h2>
+                    <a href="/electricity-office/meters" class="btn btn-outline-light btn-sm">Return to Grid</a>
+                </div>
+                <hr class="border-warning opacity-50">
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card admin-card p-5 border-warning shadow">
+                    <h4 class="text-white mb-4"><i class="fas fa-plug me-2 text-warning"></i>Grid Terminal Activation</h4>
+                    <form th:action="@{/electricity-office/add-meter}" th:object="${meter}" method="post">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" th:field="*{meterNumber}" class="form-control bg-dark text-white border-secondary" placeholder="ELE-12345678" minlength="12" maxlength="12" title="Meter number must be exactly 12 characters" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-white-50 small text-uppercase">Grid Subscriber</label>
+                                <select name="userId" class="form-select bg-dark text-white border-secondary" required>
+                                    <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.fullName + ' (' + u.username + ')'}"></option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-white-50 small text-uppercase">District</label>
+                                <select th:field="*{assignedAddress}" class="form-select bg-dark text-white border-secondary" required>
+                                    <option value="">-- Select District --</option>
+                                    <option value="Bugesera">Bugesera</option>
+                                    <option value="Burera">Burera</option>
+                                    <option value="Gakenke">Gakenke</option>
+                                    <option value="Gasabo">Gasabo</option>
+                                    <option value="Gatsibo">Gatsibo</option>
+                                    <option value="Gicumbi">Gicumbi</option>
+                                    <option value="Gisagara">Gisagara</option>
+                                    <option value="Huye">Huye</option>
+                                    <option value="Kamonyi">Kamonyi</option>
+                                    <option value="Karongi">Karongi</option>
+                                    <option value="Kayonza">Kayonza</option>
+                                    <option value="Kicukiro">Kicukiro</option>
+                                    <option value="Kirehe">Kirehe</option>
+                                    <option value="Muhanga">Muhanga</option>
+                                    <option value="Musanze">Musanze</option>
+                                    <option value="Ngoma">Ngoma</option>
+                                    <option value="Ngororero">Ngororero</option>
+                                    <option value="Nyabihu">Nyabihu</option>
+                                    <option value="Nyagatare">Nyagatare</option>
+                                    <option value="Nyamagabe">Nyamagabe</option>
+                                    <option value="Nyamasheke">Nyamasheke</option>
+                                    <option value="Nyanza">Nyanza</option>
+                                    <option value="Nyarugenge">Nyarugenge</option>
+                                    <option value="Nyaruguru">Nyaruguru</option>
+                                    <option value="Rubavu">Rubavu</option>
+                                    <option value="Ruhango">Ruhango</option>
+                                    <option value="Rulindo">Rulindo</option>
+                                    <option value="Rusizi">Rusizi</option>
+                                    <option value="Rutsiro">Rutsiro</option>
+                                    <option value="Rwamagana">Rwamagana</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-warning btn-lg w-100 shadow text-dark fw-bold">Energize Terminal</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

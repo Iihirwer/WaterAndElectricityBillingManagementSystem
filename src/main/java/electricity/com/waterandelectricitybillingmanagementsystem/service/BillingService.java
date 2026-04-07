@@ -15,9 +15,11 @@ import java.util.Optional;
 public class BillingService {
 
     private final BillRepository billRepository;
+    private final SystemService systemService;
 
-    public BillingService(BillRepository billRepository) {
+    public BillingService(BillRepository billRepository, SystemService systemService) {
         this.billRepository = billRepository;
+        this.systemService = systemService;
     }
 
     @Transactional
@@ -30,8 +32,9 @@ public class BillingService {
         bill.setBillingPeriod(issueDate.format(DateTimeFormatter.ofPattern("MMM yyyy")));
         bill.setStatus(BillStatus.PENDING);
 
-        // Simple calculation: rate difference for water/electricity
-        BigDecimal rate = meter.getType() == MeterType.ELECTRICITY ? new BigDecimal("0.15") : new BigDecimal("0.05");
+        // Fetch dynamic rates
+        BigDecimal rate = meter.getType() == MeterType.ELECTRICITY ? systemService.getElectricityRate()
+                : systemService.getWaterRate();
         BigDecimal amount = rate.multiply(BigDecimal.valueOf(unitsConsumed));
         bill.setAmount(amount);
 

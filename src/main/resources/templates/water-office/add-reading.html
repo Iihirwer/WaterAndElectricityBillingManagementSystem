@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='water-body')}">
+
+<head>
+    <title>Water Reading Log</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="display-5 fw-bold text-primary">Capture Flow Metrics</h2>
+                    <a href="/water-office/meters" class="btn btn-outline-light btn-sm">Grid View</a>
+                </div>
+                <hr class="border-primary opacity-50">
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card admin-card p-5 border-primary shadow">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-tint fa-3x text-primary mb-2"></i>
+                        <h4 class="text-white">New Reading: <span th:text="${meter.meterNumber}"></span></h4>
+                        <p class="text-white-50" th:text="${'Property: ' + meter.assignedAddress}"></p>
+                    </div>
+                    <form th:action="@{/water-office/add-reading}" method="post">
+                        <input type="hidden" name="meterId" th:value="${meter.id}">
+                        <div class="mb-3">
+                            <label class="form-label text-white-50 small">Volume Consumed (m³)</label>
+                            <input type="number" step="0.01" name="value" class="form-control bg-dark text-white border-secondary" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-white-50 small">Reading Timestamp</label>
+                            <input type="date" name="readingDate" class="form-control bg-dark text-white border-secondary" required th:value="${T(java.time.LocalDate).now()}">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 shadow">Log Metric</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

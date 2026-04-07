@@ -1,6 +1,7 @@
 package electricity.com.waterandelectricitybillingmanagementsystem.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -12,7 +13,8 @@ public class Meter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 12)
+    @Size(min = 12, max = 12, message = "Meter number must be exactly 12 characters")
     private String meterNumber;
 
     @Enumerated(EnumType.STRING)

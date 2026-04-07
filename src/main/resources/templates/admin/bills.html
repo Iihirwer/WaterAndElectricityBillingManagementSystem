@@ -17,7 +17,7 @@
                     <th>Customer</th>
                     <th>Meter No.</th>
                     <th>Period</th>
-                    <th>Amount (FRW)</th>
+                    <th>Amount (RWF)</th>
                     <th>Due Date</th>
                     <th>Status</th>
                 </tr>
@@ -28,7 +28,7 @@
                     <td th:text="${b.user.fullName}">User</td>
                     <td th:text="${b.meter.meterNumber}">Meter</td>
                     <td th:text="${b.billingPeriod}">Jan 2026</td>
-                    <td th:text="${b.amount}">100.00</td>
+                    <td th:text="${'RWF ' + #numbers.formatDecimal(b.amount, 1, 0)}">RWF 100</td>
                     <td th:text="${b.dueDate}">2026-02-15</td>
                     <td>
                         <span class="badge"

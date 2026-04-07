@@ -14,8 +14,7 @@
             <div class="card-body">
                 <form th:action="@{/admin/add-meter}" th:object="${meter}" method="post">
                     <div class="mb-3">
-                        <label class="form-label">Meter Number (Unique)</label>
-                        <input type="text" th:field="*{meterNumber}" class="form-control" required />
+                        <input type="text" th:field="*{meterNumber}" class="form-control" minlength="12" maxlength="12" title="Meter number must be exactly 12 characters" required />
                     </div>
 
                     <div class="mb-3">
@@ -26,8 +25,40 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Assigned Address</label>
-                        <textarea th:field="*{assignedAddress}" class="form-control" rows="2" required></textarea>
+                        <label class="form-label">District</label>
+                        <select th:field="*{assignedAddress}" class="form-select" required>
+                            <option value="">-- Select District --</option>
+                            <option value="Bugesera">Bugesera</option>
+                            <option value="Burera">Burera</option>
+                            <option value="Gakenke">Gakenke</option>
+                            <option value="Gasabo">Gasabo</option>
+                            <option value="Gatsibo">Gatsibo</option>
+                            <option value="Gicumbi">Gicumbi</option>
+                            <option value="Gisagara">Gisagara</option>
+                            <option value="Huye">Huye</option>
+                            <option value="Kamonyi">Kamonyi</option>
+                            <option value="Karongi">Karongi</option>
+                            <option value="Kayonza">Kayonza</option>
+                            <option value="Kicukiro">Kicukiro</option>
+                            <option value="Kirehe">Kirehe</option>
+                            <option value="Muhanga">Muhanga</option>
+                            <option value="Musanze">Musanze</option>
+                            <option value="Ngoma">Ngoma</option>
+                            <option value="Ngororero">Ngororero</option>
+                            <option value="Nyabihu">Nyabihu</option>
+                            <option value="Nyagatare">Nyagatare</option>
+                            <option value="Nyamagabe">Nyamagabe</option>
+                            <option value="Nyamasheke">Nyamasheke</option>
+                            <option value="Nyanza">Nyanza</option>
+                            <option value="Nyarugenge">Nyarugenge</option>
+                            <option value="Nyaruguru">Nyaruguru</option>
+                            <option value="Rubavu">Rubavu</option>
+                            <option value="Ruhango">Ruhango</option>
+                            <option value="Rulindo">Rulindo</option>
+                            <option value="Rusizi">Rusizi</option>
+                            <option value="Rutsiro">Rutsiro</option>
+                            <option value="Rwamagana">Rwamagana</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">

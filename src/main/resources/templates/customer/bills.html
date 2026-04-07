@@ -28,7 +28,7 @@
                             <th>Invoice ID</th>
                             <th>Meter Reference</th>
                             <th>Billing Period</th>
-                            <th>Amount (FRW)</th>
+                            <th>Amount (RWF)</th>
                             <th>Due Date</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -39,7 +39,7 @@
                             <td class="fw-bold" th:text="${b.id}">1</td>
                             <td th:text="${b.meter.meterNumber}">Meter</td>
                             <td th:text="${b.billingPeriod}">Jan 2026</td>
-                            <td class="fw-bold text-info" th:text="${#numbers.formatDecimal(b.amount, 1, 2)}">100.00
+                            <td class="fw-bold text-info" th:text="${'RWF ' + #numbers.formatDecimal(b.amount, 1, 0)}">RWF 100
                             </td>
                             <td th:text="${#temporals.format(b.dueDate, 'dd MMM yyyy')}">2026-02-15</td>
                             <td>
@@ -49,8 +49,12 @@
                             </td>
                             <td>
                                 <form th:if="${b.status.name() == 'PENDING'}" th:action="@{/customer/pay-bill}"
-                                    method="post" class="d-flex gap-2 align-items-center">
+                                    method="post" class="d-flex gap-2 align-items-center flex-wrap">
                                     <input type="hidden" name="billId" th:value="${b.id}" />
+                                    <input type="text" name="accountNumber" placeholder="Account Number"
+                                        class="form-control form-control-sm bg-dark text-white border-secondary"
+                                        style="width: 160px;" minlength="12" maxlength="12"
+                                        title="Account number must be exactly 12 digits" required />
                                     <select name="paymentMethod"
                                         class="form-select form-select-sm bg-dark text-white border-secondary w-auto"
                                         required>

@@ -65,9 +65,10 @@ public class CustomerController {
 
     @PostMapping("/pay-bill")
     public String payBill(@RequestParam("billId") Long billId,
-            @RequestParam("paymentMethod") String paymentMethod) {
+            @RequestParam("paymentMethod") String paymentMethod,
+            @RequestParam("accountNumber") String accountNumber) {
         Bill bill = billingService.findById(billId).orElseThrow();
-        paymentService.processPayment(bill, paymentMethod);
+        paymentService.processPayment(bill, paymentMethod, accountNumber);
         return "redirect:/customer/bills";
     }
 }

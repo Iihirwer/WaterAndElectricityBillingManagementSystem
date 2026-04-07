@@ -8,13 +8,36 @@
 }
 
 body.admin-body {
-    background: linear-gradient(rgba(46, 158, 183, 0.85), rgba(11, 187, 222, 0.85)), url('../images/admin-bg-water-electric.png');
+    --nav-border-color: #ffff00;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/bg-main.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 80px;
+}
+
+body.water-body {
+    --nav-border-color: #0dcaf0;
+    background: linear-gradient(rgba(0, 20, 60, 0.75), rgba(0, 20, 60, 0.75)), url('../images/bg-water.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+body.electricity-body {
+    --nav-border-color: #ffc107;
+    background: linear-gradient(rgba(40, 30, 0, 0.75), rgba(40, 30, 0, 0.75)), url('../images/bg-electricity.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.5px;
+    font-weight: 800 !important;
 }
 
 .text-silver {

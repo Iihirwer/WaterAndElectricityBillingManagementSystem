@@ -22,6 +22,9 @@ public class Payment {
     @Column(nullable = false)
     private String paymentMethod; // e.g., CREDIT_CARD, BANK_TRANSFER
 
+    @Column(nullable = false)
+    private String accountNumber;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bill_id", nullable = false, unique = true)
     private Bill bill;
@@ -41,4 +44,7 @@ public class Payment {
 
     public Bill getBill() { return bill; }
     public void setBill(Bill bill) { this.bill = bill; }
+
+    public String getAccountNumber() { return accountNumber; }
+    public void setAccountNumber(String accountNumber) { this.accountNumber = accountNumber; }
 }

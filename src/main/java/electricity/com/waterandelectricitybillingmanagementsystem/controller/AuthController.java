@@ -37,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, Model model) {
+    public String registerUser(@ModelAttribute("user") User user, @RequestParam(value = "role", defaultValue = "CUSTOMER") String roleStr, Model model) {
         if (userService.findByUsername(user.getUsername()).isPresent()) {
             model.addAttribute("error", "Username already exists.");
             return "register";
@@ -48,7 +48,19 @@ public class AuthController {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.CUSTOMER);
+        
+        try {
+            Role role = Role.valueOf(roleStr);
+            // Security: Don't allow registering as ADMIN via the public form
+            if (role == Role.ADMIN) {
+                user.setRole(Role.CUSTOMER);
+            } else {
+                user.setRole(role);
+            }
+        } catch (IllegalArgumentException e) {
+            user.setRole(Role.CUSTOMER);
+        }
+
         user.setEnabled(false); // Await admin verification
         user.setEmailVerified(false); // Await email verification
         
