@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragments/layout :: html(content=~{::div.content-wrapper}, title=~{::title}, styles=~{::link}, bodyClass='water-body')}">
+
+<head>
+    <title>Water Analytics Report</title>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <link th:href="@{/css/admin.css}" rel="stylesheet">
+        
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="display-4 fw-bold text-white mb-0">Hydro-Audit Report</h2>
+                        <p class="text-info fw-bold">Comprehensive historical record of water distribution and billing.</p>
+                    </div>
+                    <a href="/water-office/dashboard" class="btn btn-outline-info">Back to Dashboard</a>
+                </div>
+                <hr class="border-primary opacity-50">
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="card admin-card p-4 border-info">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-info text-uppercase small mb-1">Total Consumption</h6>
+                            <h2 class="text-white mb-0"><span th:text="${#numbers.formatDecimal(totalUnits, 1, 2)}">0</span> m³</h2>
+                        </div>
+                        <i class="fas fa-tint fa-3x text-info opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card admin-card p-4 border-success">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-success text-uppercase small mb-1">Total Revenue</h6>
+                            <h2 class="text-white mb-0">RWF <span th:text="${#numbers.formatDecimal(totalRevenue, 1, 0)}">0</span></h2>
+                        </div>
+                        <i class="fas fa-hand-holding-usd fa-3x text-success opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card admin-card">
+                    <div class="card-header bg-transparent border-primary">
+                        <h5 class="text-white mb-0">Transaction Ledger</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Bill ID</th>
+                                        <th>Issue Date</th>
+                                        <th>Consumer</th>
+                                        <th>Meter ID</th>
+                                        <th>Units (m³)</th>
+                                        <th>Amount (RWF)</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="bill : ${bills}">
+                                        <td class="text-info" th:text="${'#B' + bill.id}"></td>
+                                        <td th:text="${#temporals.format(bill.issueDate, 'dd MMM yyyy')}"></td>
+                                        <td th:text="${bill.user.fullName}"></td>
+                                        <td th:text="${bill.meter.meterNumber}"></td>
+                                        <td th:text="${bill.units}"></td>
+                                        <td class="fw-bold text-success" th:text="${#numbers.formatDecimal(bill.amount, 1, 0)}"></td>
+                                        <td>
+                                            <span th:class="${bill.status.name() == 'PAID' ? 'badge bg-success' : 'badge bg-warning text-dark'}"
+                                                  th:text="${bill.status}"></span>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${bills.isEmpty()}">
+                                        <td colspan="7" class="text-center py-5 text-white-50 small text-uppercase">
+                                            No billing records found for the current period
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

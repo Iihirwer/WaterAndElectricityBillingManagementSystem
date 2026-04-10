@@ -3,6 +3,7 @@ package electricity.com.waterandelectricitybillingmanagementsystem.controller;
 import electricity.com.waterandelectricitybillingmanagementsystem.entity.Meter;
 import electricity.com.waterandelectricitybillingmanagementsystem.entity.MeterType;
 import electricity.com.waterandelectricitybillingmanagementsystem.entity.User;
+import electricity.com.waterandelectricitybillingmanagementsystem.entity.Bill;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.BillingService;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.MeterService;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.UserService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/electricity-office")
@@ -76,8 +79,14 @@ public class ElectricityOfficeController {
     @PostMapping("/add-reading")
     public String addReading(@RequestParam("meterId") Long meterId,
             @RequestParam("value") Double value,
-            @RequestParam("readingDate") LocalDate readingDate) {
-        meterService.addReading(meterId, value, readingDate);
+            @RequestParam("readingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate readingDate,
+            RedirectAttributes redirectAttributes) {
+        try {
+            meterService.addReading(meterId, value, readingDate);
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/electricity-office/add-reading/" + meterId;
+        }
         return "redirect:/electricity-office/meters";
     }
 
@@ -100,5 +109,25 @@ public class ElectricityOfficeController {
     public String updateRate(@RequestParam("rate") BigDecimal rate) {
         systemService.setElectricityRate(rate);
         return "redirect:/electricity-office/rates?updated";
+    }
+
+    @GetMapping("/report")
+    public String report(Model model) {
+        var bills = billingService.findAll().stream()
+                .filter(b -> b.getMeter().getType() == MeterType.ELECTRICITY)
+                .collect(Collectors.toList());
+
+        BigDecimal totalRevenue = bills.stream()
+                .map(Bill::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        Double totalUnits = bills.stream()
+                .mapToDouble(Bill::getUnits)
+                .sum();
+
+        model.addAttribute("bills", bills);
+        model.addAttribute("totalRevenue", totalRevenue);
+        model.addAttribute("totalUnits", totalUnits);
+        return "electricity-office/report";
     }
 }

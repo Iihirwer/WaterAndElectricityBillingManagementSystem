@@ -15,7 +15,7 @@ public class MeterReading {
     @Column(nullable = false)
     private LocalDate readingDate;
 
-    @Column(nullable = false)
+    @Column(name = "\"value\"", nullable = false)
     private Double value; // units reading
 
     @ManyToOne(fetch = FetchType.LAZY)

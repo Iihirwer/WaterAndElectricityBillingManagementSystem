@@ -37,6 +37,7 @@ public class BillingService {
                 : systemService.getWaterRate();
         BigDecimal amount = rate.multiply(BigDecimal.valueOf(unitsConsumed));
         bill.setAmount(amount);
+        bill.setUnits(unitsConsumed);
 
         return billRepository.save(bill);
     }

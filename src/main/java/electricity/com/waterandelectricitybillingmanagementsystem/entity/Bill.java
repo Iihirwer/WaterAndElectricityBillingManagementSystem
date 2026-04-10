@@ -26,6 +26,9 @@ public class Bill {
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @Column(nullable = false)
+    private Double units;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BillStatus status;
@@ -56,6 +59,9 @@ public class Bill {
 
     public BigDecimal getAmount() { return amount; }
     public void setAmount(BigDecimal amount) { this.amount = amount; }
+
+    public Double getUnits() { return units; }
+    public void setUnits(Double units) { this.units = units; }
 
     public BillStatus getStatus() { return status; }
     public void setStatus(BillStatus status) { this.status = status; }
