@@ -11,4 +11,7 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
     List<Bill> findByUser(User user);
 
     List<Bill> findByMeter(Meter meter);
+
+    @org.springframework.data.jpa.repository.Query("SELECT b FROM Bill b JOIN b.meter m WHERE m.type = :type")
+    List<Bill> findByMeterType(@org.springframework.data.repository.query.Param("type") electricity.com.waterandelectricitybillingmanagementsystem.entity.MeterType type);
 }

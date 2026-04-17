@@ -19,74 +19,76 @@
     <div class="login-container">
         <!-- Left Side: Information & Branding -->
         <div class="login-info">
-            <h1>Smart Utility Management</h1>
-            <p>Empowering you with real-time tracking of your water and electricity consumption. Save resources, save money, and join the green revolution.</p>
+            <h1 th:text="#{login.smart_branding}">Smart Utility Management</h1>
+            <p th:text="#{login.smart_desc}">Empowering you with real-time tracking of your water and electricity consumption. Save resources, save money, and join the green revolution.</p>
             
             <div class="feature-list">
                 <div class="feature-item">
                     <i class="fas fa-check-circle feature-icon"></i>
-                    <span>Precise Digital Meter Tracking</span>
+                    <span th:text="#{feature.meter}">Precise Digital Meter Tracking</span>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-check-circle feature-icon"></i>
-                    <span>Instant Bill Generation & History</span>
+                    <span th:text="#{feature.bill}">Instant Bill Generation & History</span>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-check-circle feature-icon"></i>
-                    <span>Secure Online Payments</span>
+                    <span th:text="#{feature.payment}">Secure Online Payments</span>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-check-circle feature-icon"></i>
-                    <span>24/7 Energy & Water Usage Insights</span>
+                    <span th:text="#{feature.insights}">24/7 Energy & Water Usage Insights</span>
                 </div>
             </div>
         </div>
 
         <!-- Right Side: Login Form -->
         <div class="login-form-side">
+            <div class="d-flex justify-content-end mb-4">
+                <div class="dropdown">
+                    <button class="btn btn-outline-info btn-sm dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-globe me-1"></i> <span th:text="#{nav.language}">Language</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow border-0" style="background: rgba(20, 22, 60, 0.95);">
+                        <li><a class="dropdown-item" href="?lang=en"><img src="https://flagcdn.com/w20/us.png" class="me-2" alt="EN"> English</a></li>
+                        <li><a class="dropdown-item" href="?lang=rw"><img src="https://flagcdn.com/w20/rw.png" class="me-2" alt="RW"> Kinyarwanda</a></li>
+                        <li><a class="dropdown-item" href="?lang=fr"><img src="https://flagcdn.com/w20/fr.png" class="me-2" alt="FR"> Français</a></li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="form-header">
                 <i class="fas fa-bolt fa-3x mb-3 text-warning"></i>
-                <h2>Welcome Back</h2>
-                <p class="text-info">Please enter your details</p>
+                <h2 th:text="#{login.title}">Welcome Back</h2>
+                <p class="text-info" th:text="#{login.subtitle}">Please enter your details</p>
             </div>
 
             <div th:if="${param.error}" class="alert alert-danger bg-danger text-white border-0 py-2">
-                <small>Invalid username or password.</small>
+                <small th:text="#{error.invalid_credentials}">Invalid username or password.</small>
             </div>
-            <div th:if="${param.logout}" class="alert alert-info bg-info text-dark border-0 py-2">
-                <small>You have been logged out.</small>
-            </div>
-            <div th:if="${param.verified}" class="alert alert-success bg-success text-white border-0 py-2">
-                <small>Email verified successfully! Please wait for <strong>admin approval</strong> to log in.</small>
-            </div>
-            <div th:if="${param.pending}" class="alert alert-warning bg-warning text-dark border-0 py-2">
-                <small>Registration successful! Your account is <strong>pending admin approval</strong>.</small>
-            </div>
-            <div th:if="${param.registered}" class="alert alert-success bg-success text-white border-0 py-2">
-                <small>Welcome! Please login to continue.</small>
-            </div>
-
+            
             <form th:action="@{/login}" method="post">
-                <div class="mb-3">
-                    <label class="form-label small">Username</label>
+                <div class="mb-4">
+                    <label class="form-label small" th:text="#{login.username}">Username</label>
                     <div class="input-group">
                         <span class="input-group-text bg-transparent border-end-0 text-info"><i class="fas fa-user"></i></span>
-                        <input type="text" name="username" class="form-control border-start-0 ps-0" placeholder="Enter username" required />
+                        <input type="text" name="username" class="form-control border-start-0 ps-0" th:placeholder="#{login.username}" required />
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label small">Password</label>
+                <div class="mb-4">
+                    <label class="form-label small" th:text="#{login.password}">Password</label>
                     <div class="input-group">
                         <span class="input-group-text bg-transparent border-end-0 text-info"><i class="fas fa-lock"></i></span>
                         <input type="password" name="password" class="form-control border-start-0 ps-0" placeholder="••••••••" required />
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100 mb-2">Login to Account</button>
+                <button type="submit" class="btn btn-primary w-100 mb-3 py-2 fw-bold" th:text="#{login.button}">Login to Account</button>
             </form>
 
-            <div class="form-footer">
-                <p class="small text-white">New to the platform? <br>
-                    <a href="/register">Create an Account</a>
+            <div class="form-footer mt-4">
+                <p class="small text-white-50">
+                    <span th:text="#{login.new_user}">New to the platform?</span> <br>
+                    <a href="/register" class="text-info fw-bold text-decoration-none" th:text="#{login.create_account}">Create an Account</a>
                 </p>
             </div>
         </div>

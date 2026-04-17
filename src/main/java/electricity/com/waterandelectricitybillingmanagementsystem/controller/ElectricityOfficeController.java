@@ -39,8 +39,7 @@ public class ElectricityOfficeController {
     public String dashboard(Model model) {
         model.addAttribute("meters", meterService.findAll().stream()
                 .filter(m -> m.getType() == MeterType.ELECTRICITY).collect(Collectors.toList()));
-        model.addAttribute("bills", billingService.findAll().stream()
-                .filter(b -> b.getMeter().getType() == MeterType.ELECTRICITY).collect(Collectors.toList()));
+        model.addAttribute("bills", billingService.findByMeterType(MeterType.ELECTRICITY));
         model.addAttribute("currentRate", systemService.getElectricityRate());
         return "electricity-office/dashboard";
     }
@@ -113,9 +112,7 @@ public class ElectricityOfficeController {
 
     @GetMapping("/report")
     public String report(Model model) {
-        var bills = billingService.findAll().stream()
-                .filter(b -> b.getMeter().getType() == MeterType.ELECTRICITY)
-                .collect(Collectors.toList());
+        var bills = billingService.findByMeterType(MeterType.ELECTRICITY);
 
         BigDecimal totalRevenue = bills.stream()
                 .map(Bill::getAmount)

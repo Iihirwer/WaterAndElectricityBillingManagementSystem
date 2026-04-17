@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: html(~{::content}, ~{::title}, ~{::styles}, 'bg-dark')}">
+<head>
+    <title>404 - Page Not Found</title>
+    <style th:fragment="styles">
+        .error-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 10vh;
+            color: white;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #FFB800, #FF5C00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div th:fragment="content" class="container">
+        <div class="error-card shadow-lg">
+            <h1 class="error-code">404</h1>
+            <h2 class="mb-4">Oops! Page Missing</h2>
+            <p class="lead mb-5">The resources you are looking for has been moved or doesn't exist.</p>
+            <a href="/" class="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-bold">Return to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

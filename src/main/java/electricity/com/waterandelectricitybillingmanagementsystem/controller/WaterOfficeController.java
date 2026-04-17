@@ -39,8 +39,7 @@ public class WaterOfficeController {
     public String dashboard(Model model) {
         model.addAttribute("meters", meterService.findAll().stream()
                 .filter(m -> m.getType() == MeterType.WATER).collect(Collectors.toList()));
-        model.addAttribute("bills", billingService.findAll().stream()
-                .filter(b -> b.getMeter().getType() == MeterType.WATER).collect(Collectors.toList()));
+        model.addAttribute("bills", billingService.findByMeterType(MeterType.WATER));
         model.addAttribute("currentRate", systemService.getWaterRate());
         return "water-office/dashboard";
     }
@@ -113,9 +112,7 @@ public class WaterOfficeController {
 
     @GetMapping("/report")
     public String report(Model model) {
-        var bills = billingService.findAll().stream()
-                .filter(b -> b.getMeter().getType() == MeterType.WATER)
-                .collect(Collectors.toList());
+        var bills = billingService.findByMeterType(MeterType.WATER);
         
         BigDecimal totalRevenue = bills.stream()
                 .map(Bill::getAmount)

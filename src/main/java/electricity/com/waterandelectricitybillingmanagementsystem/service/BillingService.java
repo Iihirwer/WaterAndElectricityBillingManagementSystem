@@ -54,6 +54,10 @@ public class BillingService {
         return billRepository.findAll();
     }
 
+    public List<Bill> findByMeterType(MeterType type) {
+        return billRepository.findByMeterType(type);
+    }
+
     public Optional<Bill> findById(Long id) {
         return billRepository.findById(id);
     }

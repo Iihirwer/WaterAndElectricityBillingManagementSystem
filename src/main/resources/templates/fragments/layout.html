@@ -26,28 +26,40 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto" sec:authorize="isAuthenticated()">
                     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link fw-bold text-light" href="/admin/dashboard">ADMIN HUB</a>
+                        <a class="nav-link fw-bold text-light" href="/admin/dashboard" th:text="#{nav.admin}">ADMIN HUB</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('WATER_OFFICE')">
-                        <a class="nav-link fw-bold text-info" href="/water-office/dashboard">WATER COMMAND</a>
+                        <a class="nav-link fw-bold text-info" href="/water-office/dashboard" th:text="#{nav.water}">WATER COMMAND</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ELECTRICITY_OFFICE')">
-                        <a class="nav-link fw-bold text-warning" href="/electricity-office/dashboard">GRID COMMAND</a>
+                        <a class="nav-link fw-bold text-warning" href="/electricity-office/dashboard" th:text="#{nav.electricity}">GRID COMMAND</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('CUSTOMER')">
-                        <a class="nav-link fw-bold text-success" href="/customer/dashboard">MY ACCOUNT</a>
+                        <a class="nav-link fw-bold text-success" href="/customer/dashboard" th:text="#{nav.account}">MY ACCOUNT</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Language Switcher -->
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle btn btn-outline-warning btn-sm px-3 rounded-pill text-warning fw-bold" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe me-1"></i> <span th:text="#{nav.language}">Language</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow-lg border-0 mt-2" aria-labelledby="langDropdown" style="background: rgba(20, 22, 60, 0.95); backdrop-filter: blur(10px);">
+                            <li><a class="dropdown-item" href="?lang=en"><img src="https://flagcdn.com/w20/us.png" class="me-2" alt="EN"> English</a></li>
+                            <li><a class="dropdown-item" href="?lang=rw"><img src="https://flagcdn.com/w20/rw.png" class="me-2" alt="RW"> Kinyarwanda</a></li>
+                            <li><a class="dropdown-item" href="?lang=fr"><img src="https://flagcdn.com/w20/fr.png" class="me-2" alt="FR"> Français</a></li>
+                        </ul>
+                    </li>
+                    
                     <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="/login" th:text="#{nav.login}">Login</a>
                     </li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/register">Register</a>
+                        <a class="nav-link" href="/register" th:text="#{nav.register}">Register</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <form th:action="@{/logout}" method="post">
-                            <button type="submit" class="nav-link btn btn-link fw-bold text-danger">Logout</button>
+                        <form th:action="@{/logout}" method="post" class="m-0">
+                            <button type="submit" class="nav-link btn btn-link fw-bold text-danger border-0" th:text="#{nav.logout}">Logout</button>
                         </form>
                     </li>
                 </ul>

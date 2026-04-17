@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: html(~{::content}, ~{::title}, ~{::styles}, 'bg-dark')}">
+<head>
+    <title>500 - System Error</title>
+    <style th:fragment="styles">
+        .error-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 10vh;
+            color: white;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #FF5C00, #FF0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div th:fragment="content" class="container">
+        <div class="error-card shadow-lg">
+            <h1 class="error-code">500</h1>
+            <h2 class="mb-4">System Anomaly Detected</h2>
+            <p class="lead mb-2">Our engineers have been notified. Something went wrong internally.</p>
+            <p class="text-muted mb-5" th:text="${message}">Unexpected Error</p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="/" class="btn btn-outline-light btn-lg px-4 rounded-pill">Back to Safety</a>
+                <button onclick="location.reload()" class="btn btn-danger btn-lg px-4 rounded-pill fw-bold">Try Again</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
