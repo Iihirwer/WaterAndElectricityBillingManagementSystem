@@ -13,13 +13,16 @@ A modern, robust, and secure management system designed for efficient tracking a
 - **💳 Payment Integration**: Track and manage customer payments securely.
 - **📧 Email Notifications**: Automatic emails for OTP and billing updates.
 
-## 🛠️ Technology Stack
+---
 
-- **Backend**: Java 25, Spring Boot 4.x
-- **Database**: MySQL
-- **Security**: Spring Security, JWT
-- **Frontend**: Thymeleaf, Vanilla CSS (Glassmorphism)
-- **Mailing**: Spring Boot Mail (SMTP)
+## 🏗️ System Architecture
+
+The application follows a standard **MVC (Model-View-Controller)** pattern:
+- **Presentation Layer**: Thymeleaf templates with Vanilla CSS (Glassmorphism).
+- **Control Layer**: Spring MVC Controllers handling routing and data binding.
+- **Service Layer**: Business logic for billing, meter management, and notifications.
+- **Persistence Layer**: Spring Data JPA with MySQL/H2 support.
+- **Security**: Spring Security with JWT (JSON Web Tokens) for API protection and Session-based auth for MVC.
 
 ---
 
@@ -28,7 +31,7 @@ A modern, robust, and secure management system designed for efficient tracking a
 ### Prerequisites
 - JDK 25
 - Maven 3.9+
-- MySQL Server
+- MySQL Server or Docker
 
 ### Installation Steps
 1. **Clone the repository**:
@@ -37,33 +40,34 @@ A modern, robust, and secure management system designed for efficient tracking a
    cd WaterAndElectricityBillingManagementSystem
    ```
 
-2. **Setup Database**:
-   - Create a database: `CREATE DATABASE water_electricity_db;`
-   - Import the schema: `mysql -u root -p water_electricity_db < init_db.sql`
-
-3. **Configure Environment**:
-   - Update `src/main/resources/application.properties` with your MySQL credentials.
-
-4. **Run the Application**:
+2. **Run with Maven**:
    ```bash
    mvn spring-boot:run
    ```
    Access at `http://localhost:8080`
 
+3. **Run with Docker**:
+   ```bash
+   docker build -t water-electricity-system .
+   docker run -p 8080:8080 water-electricity-system
+   ```
+
 ---
 
-## 🌐 Deployment (Railway.app)
+## 🌐 Deployment (Free Hosting)
 
-To host this project online:
-1. Connect your GitHub repository to [Railway.app](https://railway.app/).
-2. Add a **MySQL** database plugin to your project.
-3. Configure the following **Environment Variables**:
-   - `SPRING_DATASOURCE_URL`: `jdbc:mysql://${{MYSQL_HOST}}:${{MYSQL_PORT}}/${{MYSQL_DATABASE}}`
-   - `SPRING_DATASOURCE_USERNAME`: `${{MYSQL_USER}}`
-   - `SPRING_DATASOURCE_PASSWORD`: `${{MYSQL_PASSWORD}}`
-   - `JWT_SECRET`: Your random 64-char string.
-   - `MAIL_USERNAME`: Your SMTP email.
-   - `MAIL_PASSWORD`: Your SMTP app password.
+### Deploy to Render.com
+1. Create a free account on [Render](https://render.com/).
+2. Click **New +** > **Blueprint**.
+3. Connect this GitHub repository.
+4. Render will automatically detect `render.yaml` and configure the project.
+5. Your app will be live at `https://water-electricity-system-xxxx.onrender.com`.
+
+---
+
+## 📄 Documentation & Reports
+- [PHASE_9_INTEGRATION_REPORT.md](PHASE_9_INTEGRATION_REPORT.md)
+- [PHASE_11_COMPLETION_REPORT.md](PHASE_11_COMPLETION_REPORT.md)
 
 ---
 

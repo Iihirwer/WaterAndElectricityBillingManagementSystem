@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: water-electricity-system
+    env: docker
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:h2:mem:water_electricity_db;DB_CLOSE_DELAY=-1
+      - key: SPRING_DATASOURCE_USERNAME
+        value: sa
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: ""
+      - key: JWT_SECRET
+        value: 4a616c616b616c616b616c616b616c616b616c616b616c616b616c616b616c61
+      - key: MAIL_USERNAME
+        value: ihirweraissa@gmail.com
+      - key: MAIL_PASSWORD
+        value: fxyg dowy gwut uwat

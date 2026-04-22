@@ -5,6 +5,8 @@ import java.util.Optional;
 import electricity.com.waterandelectricitybillingmanagementsystem.entity.Role;
 import electricity.com.waterandelectricitybillingmanagementsystem.entity.User;
 import electricity.com.waterandelectricitybillingmanagementsystem.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class WaterAndElectricityBillingManagementSystemApplication {
+
+    private static final Logger logger = LoggerFactory.getLogger(WaterAndElectricityBillingManagementSystemApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(WaterAndElectricityBillingManagementSystemApplication.class, args);
@@ -23,7 +27,7 @@ public class WaterAndElectricityBillingManagementSystemApplication {
         return args -> {
             Optional<User> adminOpt = userService.findByUsername("Admin");
             if (adminOpt.isEmpty()) {
-                System.out.println("Admin user not found, creating...");
+                logger.info("Admin user not found, creating...");
                 User admin = new User();
                 admin.setUsername("Admin");
                 admin.setPassword(passwordEncoder.encode("admin123"));
@@ -35,13 +39,13 @@ public class WaterAndElectricityBillingManagementSystemApplication {
                 admin.setPhone("000-000-0000");
                 admin.setAddress("System Office");
                 userService.save(admin);
-                System.out.println("Admin user created.");
+                logger.info("Admin user created.");
             } else {
                 User admin = adminOpt.get();
                 admin.setEnabled(true);
                 admin.setEmailVerified(true);
                 userService.save(admin);
-                System.out.println("Admin user found, updating status...");
+                logger.info("Admin user found, updating status...");
             }
 
             // Also create a test customer if not exists
@@ -55,7 +59,7 @@ public class WaterAndElectricityBillingManagementSystemApplication {
                 customer.setEnabled(true);
                 customer.setEmailVerified(true);
                 userService.save(customer);
-                System.out.println("Test customer created.");
+                logger.info("Test customer created.");
             }
         };
     }
