@@ -29,7 +29,7 @@ The application follows a standard **MVC (Model-View-Controller)** pattern:
 ## 💻 Local Setup
 
 ### Prerequisites
-- JDK 25
+- JDK 21
 - Maven 3.9+
 - MySQL Server or Docker
 
